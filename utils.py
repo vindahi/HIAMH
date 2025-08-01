@@ -265,19 +265,9 @@ def p_topK2(qB, rB, query_label, retrieval_label, K):
 
 def get_rank(model):
 
-    hash_weight = model.weight
+    #### If our paper is accepted, the key code will be released
 
-    _, rank_index = torch.sort(hash_weight, descending=True)
-    return rank_index
-
-def code_center_loss(hash_code, center, label, eps = 1e-5):
-    code_length = hash_code.shape[1]
-    logit_ii = hash_code.mm(center.t()) / code_length
-    our_logit_ii = torch.exp(logit_ii) * label
-    mu_logit_ii = (torch.exp(logit_ii) * (1 - label)).sum(1).view(-1, 1).expand(logit_ii.shape[0], logit_ii.shape[1]) + our_logit_ii
-    lossi = -((torch.log((our_logit_ii) / (mu_logit_ii + eps) + eps) * label).sum(1) / label.sum(1))
-    loss = lossi.mean()
-    return loss
+    return 0
 
 
 
